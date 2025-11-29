@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serchify Login</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(grey, #4b2cf0, white);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgb(127, 127, 127), ;
+      border-radius: 20px;
+      width: 380px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      position: relative;
+    }
+
+    .emoji {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .emoji img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .hand {
+      width: 30px;
+      height: 30px;
+      background: #ffcc4d;
+      border-radius: 50%;
+      position: absolute;
+      top: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .hand.left {
+      left: -40px;
+    }
+
+    .hand.right {
+      right: -40px;
+    }
+
+    .cover .hand.left {
+      left: 15px;
+      top: 10px;
+      transform: rotate(-25deg);
+    }
+
+    .cover .hand.right {
+      right: 15px;
+      top: 10px;
+      transform: rotate(25deg);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+      color: #222;
+    }
+
+    p {
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #4b2cf0;
+    }
+
+    .remember {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #7b61ff, #4b2cf0);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Google button */
+    .google-btn {
+      width: 100%;
+      background: #fff;
+      color: #444;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 500;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+
+    .google-btn img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .google-btn:hover {
+      background: #f7f7f7;
+    }
+
+    .signup-text {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .signup-text a {
+      color: #4b2cf0;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="emoji" id="emoji">
+      <img src="https://em-content.zobj.net/source/microsoft-teams/363/smiling-face-with-smiling-eyes_1f60a.png"
+        alt="emoji" />
+      <div class="hand left"></div>
+      <div class="hand right"></div>
+    </div>
+
+    <h2>Welcome Back</h2>
+    <p>Sign in to your account</p>
+
+    <input type="email" id="email" placeholder="you@example.com" />
+    <input type="password" id="password" placeholder="••••••••" />
+
+    <div class="remember">
+      <label><input type="checkbox" /> Remember me</label>
+      <a href="#" style="color:#4b2cf0;">Forgot password?</a>
+    </div>
+
+    <button class="btn" id="loginBtn">Sign In</button>
+
+    <button class="google-btn" id="googleBtn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Google logo" />
+      Continue with Google
+    </button>
+
+    <p class="signup-text">
+      Don’t have an account? <a href="#">Sign up</a>
+    </p>
+  </div>
+
+  <script>
+    const passwordInput = document.getElementById('password');
+    const emoji = document.getElementById('emoji');
+
+    const loginBtn = document.getElementById('loginBtn');
+    const googleBtn = document.getElementById('googleBtn');
+
+    // Emoji animation
+    passwordInput.addEventListener('focus', () => emoji.classList.add('cover'));
+    passwordInput.addEventListener('blur', () => emoji.classList.remove('cover'));
+
+    // If already logged in → skip login page
+    if (localStorage.getItem("signedIn") === "true") {
+      window.location.href = "search.html";
+    }
+
+    // Normal Login
+    loginBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (email === "" || password === "") {
+        alert("Please enter email and password");
+        return;
+      }
+
+      // Fake login success
+      localStorage.setItem("signedIn", "true");
+      window.location.href = "search.html";
+    });
+
+    // Google Login (fake login)
+    googleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.setItem("signedIn", "true");
+      window.location.href = "search.html";
+    });
+
+    // -----------------------
+    // SIGN UP BUTTON WORKING
+    // -----------------------
+    document.querySelector(".signup-text a").addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "signup.html";   // <-- your real signup file
+    });
+
+    // ---------------------------
+    // FORGOT PASSWORD BUTTON FIX
+    // ---------------------------
+    document.querySelector(".remember a").addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "reset.html"; // <-- create this page later
+    });
+  </script>
+
+
+</body>
+
+</html>

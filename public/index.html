@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SearchNet – Smart AI Search Assistant</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family:'Inter',sans-serif;
+      background-color:#f8fafc;
+      color:#333;
+      overflow-x:hidden;
+    }
+    .navbar {
+      position:fixed; top:0; width:100%;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(10px);
+      z-index:1000;
+    }
+    .nav-container {
+      max-width:1200px; margin:auto;
+      padding:0 20px;
+      height:80px;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .logo-text {font-size:26px;font-weight:800;color:#2563eb;}
+    .nav-menu {display:flex; list-style:none; gap:40px;}
+    .nav-link {text-decoration:none;color:#333;font-weight:500;}
+    .nav-link:hover {color:#2563eb;}
+    .cta-button {
+      background:#2563eb; color:#fff;
+      border:none; padding:12px 24px;
+      border-radius:25px;
+      font-weight:600; cursor:pointer;
+      transition:all .3s;
+    }
+    .cta-button:hover {
+      background:#1e40af; transform:translateY(-2px);
+      box-shadow:0 5px 15px rgba(37,99,235,.3);
+    }
+    .hero {
+      min-height:100vh; display:flex; align-items:center;
+      padding-top:80px;
+      background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%);
+    }
+    .hero-container {
+      max-width:1200px; margin:auto; padding:0 20px;
+      display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+    }
+    .hero-title {font-size:3.5rem;font-weight:800;margin-bottom:20px;color:#111827;}
+    .hero-subtitle {font-size:1.2rem;color:#475569;margin-bottom:40px;line-height:1.6;}
+    .hero-image img {
+      width:100%;height:420px;object-fit:cover;
+      border-radius:20px;box-shadow:0 20px 40px rgba(0,0,0,0.1);
+      transition:transform .3s;
+    }
+    .hero-image img:hover {transform:scale(1.05);}
+    .why-choose {padding:100px 0;background:#fff;}
+    .section-title {font-size:2.5rem;text-align:center;margin-bottom:20px;color:#111827;}
+    .section-subtitle {text-align:center;font-size:1.1rem;color:#475569;margin-bottom:60px;max-width:650px;margin:auto;}
+    .features-grid {
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:40px;margin-top:40px;
+    }
+    .feature-item {
+      text-align:center;padding:30px;background:white;
+      border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,.05);
+      transition:transform .3s,box-shadow .3s;
+    }
+    .feature-item:hover {transform:translateY(-8px);box-shadow:0 20px 40px rgba(37,99,235,.15);}
+    .feature-item h3 {font-size:1.3rem;margin-bottom:15px;color:#1e3a8a;}
+    .contact-section {
+      padding:100px 0;
+      background:linear-gradient(135deg,#2563eb 0%,#1e40af 100%);
+      text-align:center;color:white;
+    }
+    .contact-title {font-size:2.5rem;margin-bottom:40px;}
+    .footer {background:#111827;color:white;padding:60px 0 20px;text-align:center;}
+    .footer-bottom {border-top:1px solid #334155;padding-top:20px;color:#94a3b8;font-size:.9rem;}
+
+    /* Popup Login */
+    .modal {
+      display:none; position:fixed; z-index:2000;
+      left:0; top:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.5);
+      justify-content:center; align-items:center;
+    }
+    .modal-content {
+      background:white; padding:30px;
+      border-radius:15px; width:90%; max-width:400px;
+      text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.2);
+      animation:fadeIn .3s ease;
+    }
+    @keyframes fadeIn {from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
+    .modal-content input {
+      width:100%; padding:12px; margin:10px 0;
+      border:1px solid #ccc; border-radius:8px;
+    }
+    .modal-content button {
+      background:#2563eb;color:white;
+      padding:10px 20px;border:none;border-radius:8px;cursor:pointer;
+      font-weight:600;transition:.3s;
+    }
+    .modal-content button:hover {background:#1e40af;}
+    .close-btn {float:right;cursor:pointer;font-size:20px;color:#555;}
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo"><span class="logo-text">SerchNet</span></div>
+      <ul class="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="cta-button" id="getStartedBtn">Get Started</button>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">Search Smarter with AI</h1>
+        <p class="hero-subtitle">
+          Serchify combines the power of AI and real-time data to give you accurate, summarized, and verified answers — instantly. 
+          It’s like having ChatGPT + Google in one.
+        </p>
+        <button class="cta-button" id="heroStartBtn">Try Serch Net</button>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&w=800" alt="AI assistant workspace">
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="why-choose">
+    <h2 class="section-title">Why Choose Serch Net?</h2>
+    <p class="section-subtitle">
+      We make AI search accessible, beautiful, and reliable. Whether you’re researching, summarizing, or fact-checking — SerchNet delivers.
+    </p>
+    <div class="features-grid">
+      <div class="feature-item"><h3>AI + Web Powered</h3><p>Combines real-time results with AI summaries.</p></div>
+      <div class="feature-item"><h3>Instant Insights</h3><p>Short, precise summaries instead of long articles.</p></div>
+      <div class="feature-item"><h3>Trusted Sources</h3><p>Every answer backed by real source links.</p></div>
+      <div class="feature-item"><h3>Beautiful Interface</h3><p>ChatGPT-style smooth and clean layout.</p></div>
+      <div class="feature-item"><h3>Multiple Modes</h3><p>AI-only, Summary, or Link-only view options.</p></div>
+      <div class="feature-item"><h3>Always Learning</h3><p>Improves with every search and feedback.</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <h2 class="contact-title">Experience the Future of Search</h2>
+    <button class="cta-button" id="contactStartBtn">Get Started for Free</button>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2025 SerchNet. Built with ❤️ for smarter searching.</p>
+      <p>Made by Indraneel Palande</p>
+    </div>
+  </footer>
+
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h2>Sign in to Serchify</h2>
+      <input type="email" id="email" placeholder="Email" />
+      <input type="password" id="password" placeholder="Password" />
+      <button id="loginBtn">Continue</button>
+      <p style="margin-top:10px;font-size:.9rem;color:#555;">No account? <a href="#" style="color:#2563eb;">Sign up</a></p>
+    </div>
+  </div>
+
+ <script>
+  const buttons = ['getStartedBtn', 'heroStartBtn', 'contactStartBtn'];
+  buttons.forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Redirect user to the standalone login/signup page
+        window.location.href = "signn.html";
+      });
+    }
+  });
+  
+</script>
+
+<script type="module" src="firebase.js"></script>
+
+</body>
+</html>
